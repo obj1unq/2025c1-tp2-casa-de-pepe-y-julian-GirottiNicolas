@@ -77,5 +77,7 @@ object casaDePepeYJulian {
     method categoriasCompradas(){
         return cosasCompradas.map({cosa => cosa.categoria()}).asSet()
     }
+
+    
    
 }

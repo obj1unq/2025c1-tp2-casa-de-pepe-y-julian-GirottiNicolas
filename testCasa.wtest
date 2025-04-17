@@ -3,17 +3,52 @@ import cosas.*
 
 
 describe "Casa de pepe y julian: Parte 1"{
-    /*
+    
     method comprarVarios(listaDeCompras){
         listaDeCompras.forEach({compra => casaDePepeYJulian.comprar(compra)})
     }
     test "Comprar heladera, una cama y una plancha" {
         self.comprarVarios([heladera,cama,plancha])
         assert.equals(casaDePepeYJulian.cosasCompradas(), [heladera,cama,plancha])
-    }
-    */
-    test "Testing"{
-        casaDePepeYJulian.comprar(heladera)
+
+        // Cantidad de cosas compradas = 3
+        assert.equals(3,casaDePepeYJulian.cantidadDeCosasCompradas())
+
+        // Tiene algun electro
         assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+
+        // No tiene alguna comida
+        assert.notThat(casaDePepeYJulian.tieneAlgun(comida))
+
+        // Viene de comprar un electrodomestico pero no un mueble
+        assert.that(casaDePepeYJulian.vieneDeComprar(electrodomestico))
+        assert.notThat(casaDePepeYJulian.vieneDeComprar(mueble))
+
+        // Derrocha guita
+        assert.that(casaDePepeYJulian.esDerrochona())
+
+        // Electrodomesticos comprados -> heladera y plancha
+        assert.equals([heladera,plancha], casaDePepeYJulian.comprados(electrodomestico))
+
+        // Muebles comprados -> cama
+        assert.equals([cama], casaDePepeYJulian.comprados(mueble))
+
+        // Sin comida
+        assert.notThat(casaDePepeYJulian.tieneAlgun(comida))  
+
+        // Es una buena epoca
+        assert.notThat(casaDePepeYJulian.malaEpoca()) 
+
+        // Que falta comprar..
+        assert.equals([tiraDeAsado,paqueteDeFideos],casaDePepeYJulian.queFaltaComprar([tiraDeAsado,plancha,paqueteDeFideos]))
+
+        // falta comida
+        assert.that(casaDePepeYJulian.faltaComida())
+
+        // Categorias compradas -> electro y mueble
+        assert.equals(#{electrodomestico,mueble}, casaDePepeYJulian.categoriasCompradas())
     }
+
+    
+    
 }
