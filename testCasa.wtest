@@ -48,7 +48,25 @@ describe "Casa de pepe y julian: Parte 1"{
         // Categorias compradas -> electro y mueble
         assert.equals(#{electrodomestico,mueble}, casaDePepeYJulian.categoriasCompradas())
     }
+    
+}
 
-    
-    
+describe "Cuentas bancarias" {
+    test "Cuenta corriente" {
+        // Saldo inicial
+        cuentaCorriente.depositar(20)
+        assert.equals(20, cuentaCorriente.saldo())
+        
+        // Depositar 1000 
+        cuentaCorriente.depositar(1000)
+        assert.equals(1020,cuentaCorriente.saldo())
+
+        // Extraer 50
+        cuentaCorriente.extraer(50)
+        assert.equals(970, cuentaCorriente.saldo())
+
+        // Extraccion de 2000, genera error
+        assert.throwsExceptionWithMessage("Supera limite de extraccion",
+                                        {cuentaCorriente.extraer(2000)  })
+    }
 }

@@ -4,6 +4,12 @@ object casaDePepeYJulian {
 
     const property cosasCompradas = []
 
+    const cuenta = #{}
+
+    method asignarCuenta(cuentaDeCasa){
+        cuenta.add(cuenta)
+    }
+
     method comprar(cosa) {
         cosasCompradas.add(cosa)      
     }
@@ -78,6 +84,54 @@ object casaDePepeYJulian {
         return cosasCompradas.map({cosa => cosa.categoria()}).asSet()
     }
 
+}
+
+object cuentaCorriente {
+    var saldo = 0
+
+    method saldo() {
+      return saldo
+    }
+
+    method depositar(monto){
+        saldo += monto
+    }
+
+    method extraer(cantidad) {
+        // Excepcion al retirar una suma mayor a la que se tiene
+        self.validarExtraccion(cantidad)
+        saldo -= cantidad
+    }
+    method validarExtraccion(monto){
+        if(monto > saldo){ self.error("Supera limite de extraccion")}
+    }
+}
+
+object cuentaConGastos {
+    var saldo = 0
+
+    method costoDeOperacion(){
+        return 20
+    }
+
+    method saldo() {
+      return saldo
+    }
+
+    method depositar(monto){
+        self.validarDeposito(monto)
+        saldo += (monto - self.costoDeOperacion()) 
+    }
+
+    method validarDeposito(monto){
+        if (monto >= 1000){
+            self.error("El deposito supera el limite de 1000")
+        }
+    }
+
+    method extraer(cantidad){
+        saldo -= cantidad
+    }
+
     
-   
 }
