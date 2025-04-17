@@ -1,0 +1,8 @@
+import casa.*
+
+
+describe "Cosas de la casa"{
+    test "Comprar una cosa" {
+      
+    }
+}
