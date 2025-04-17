@@ -54,7 +54,7 @@ describe "Casa de pepe y julian: Parte 1"{
 describe "Cuentas bancarias" {
     test "Cuenta corriente" {
         // Saldo inicial
-        cuentaCorriente.depositar(20)
+        cuentaCorriente.saldo(20)
         assert.equals(20, cuentaCorriente.saldo())
         
         // Depositar 1000 
@@ -68,5 +68,29 @@ describe "Cuentas bancarias" {
         // Extraccion de 2000, genera error
         assert.throwsExceptionWithMessage("Supera limite de extraccion",
                                         {cuentaCorriente.extraer(2000)  })
+    }
+
+    test "cuentaConGastos" {
+        // Deposito inicial 
+        cuentaConGastos.saldo(500)
+     
+        // Depositar 1000
+        cuentaConGastos.depositar(1000)
+        assert.equals(1480, cuentaConGastos.saldo())
+
+        // Extraer 30
+        cuentaConGastos.extraer(30)
+        assert.equals(1450, cuentaConGastos.saldo())
+
+        // Deposito de 2000 con error
+        assert.throwsExceptionWithMessage("El deposito supera el limite de 1000",
+                                        {cuentaConGastos.depositar(2000)  })
+        
+        // El saldo sigue en 1450
+        assert.equals(1450, cuentaConGastos.saldo())
+
+        // Extraer 2000 y cuenta en -550
+        cuentaConGastos.extraer(2000)
+        assert.equals(-550, cuentaConGastos.saldo())
     }
 }

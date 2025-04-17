@@ -87,11 +87,7 @@ object casaDePepeYJulian {
 }
 
 object cuentaCorriente {
-    var saldo = 0
-
-    method saldo() {
-      return saldo
-    }
+    var property saldo = 0
 
     method depositar(monto){
         saldo += monto
@@ -108,14 +104,10 @@ object cuentaCorriente {
 }
 
 object cuentaConGastos {
-    var saldo = 0
+    var property saldo = 0
 
     method costoDeOperacion(){
         return 20
-    }
-
-    method saldo() {
-      return saldo
     }
 
     method depositar(monto){
@@ -124,7 +116,7 @@ object cuentaConGastos {
     }
 
     method validarDeposito(monto){
-        if (monto >= 1000){
+        if (monto > 1000){
             self.error("El deposito supera el limite de 1000")
         }
     }
