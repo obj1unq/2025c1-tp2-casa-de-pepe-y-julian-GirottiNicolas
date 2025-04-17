@@ -69,4 +69,13 @@ object casaDePepeYJulian {
     method fueComprado(cosa){
         return cosasCompradas.contains(cosa)
     }
+
+    method faltaComida(){
+        return self.comprados(comida).size() < 2
+    }
+
+    method categoriasCompradas(){
+        return cosasCompradas.map({cosa => cosa.categoria()}).asSet()
+    }
+   
 }
