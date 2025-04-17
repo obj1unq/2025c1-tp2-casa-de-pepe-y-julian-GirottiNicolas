@@ -2,7 +2,7 @@ import cosas.*
 
 object casaDePepeYJulian {
 
-    const cosasCompradas = []
+    const property cosasCompradas = []
 
     method comprar(cosa) {
         cosasCompradas.add(cosa)      

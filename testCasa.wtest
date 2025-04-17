@@ -1,8 +1,19 @@
 import casa.*
+import cosas.*
 
 
-describe "Cosas de la casa"{
-    test "Comprar una cosa" {
-      
+describe "Casa de pepe y julian: Parte 1"{
+    /*
+    method comprarVarios(listaDeCompras){
+        listaDeCompras.forEach({compra => casaDePepeYJulian.comprar(compra)})
+    }
+    test "Comprar heladera, una cama y una plancha" {
+        self.comprarVarios([heladera,cama,plancha])
+        assert.equals(casaDePepeYJulian.cosasCompradas(), [heladera,cama,plancha])
+    }
+    */
+    test "Testing"{
+        casaDePepeYJulian.comprar(heladera)
+        assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
     }
 }
