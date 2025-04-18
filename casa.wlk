@@ -4,14 +4,30 @@ object casaDePepeYJulian {
 
     const property cosasCompradas = []
 
-    const cuenta = #{}
+    const cuenta = []
 
     method asignarCuenta(cuentaDeCasa){
-        cuenta.add(cuenta)
+        if (cuenta.isEmpty()) { cuenta.add(cuentaDeCasa)} else {self.reemplazarCuenta(cuentaDeCasa)}
     }
 
+    method reemplazarCuenta(cuentaNueva){
+        cuenta.clear()
+        cuenta.add(cuentaNueva)
+    }
+
+    
+
     method comprar(cosa) {
-        cosasCompradas.add(cosa)      
+        cosasCompradas.add(cosa)
+        self.pagar(cosa)      
+    }
+
+    method cuentaBancaria(){
+        return cuenta.first()
+    }
+
+    method pagar(compra){
+        self.cuentaBancaria().extraer(compra.precio())
     }
 
     method cantidadDeCosasCompradas(){
@@ -94,7 +110,6 @@ object cuentaCorriente {
     }
 
     method extraer(cantidad) {
-        // Excepcion al retirar una suma mayor a la que se tiene
         self.validarExtraccion(cantidad)
         saldo -= cantidad
     }
