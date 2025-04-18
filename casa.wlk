@@ -1,5 +1,13 @@
 import cosas.* 
 
+
+/*
+* ▄▖        ▌                ▘  ▜ ▘    
+* ▌ ▀▌▛▘▀▌ ▛▌█▌ ▛▌█▌▛▌█▌ ▌▌  ▌▌▌▐ ▌▀▌▛▌
+* ▙▖█▌▄▌█▌ ▙▌▙▖ ▙▌▙▖▙▌▙▖ ▙▌  ▌▙▌▐▖▌█▌▌▌
+*               ▌   ▌    ▄▌ ▙▌         
+*/
+
 object casaDePepeYJulian {
 
     const property cosasCompradas = []
@@ -101,6 +109,15 @@ object casaDePepeYJulian {
     }
 
 }
+
+
+/*
+ *    ▄▖      ▗      ▌           ▘    
+ *    ▌ ▌▌█▌▛▌▜▘▀▌▛▘ ▛▌▀▌▛▌▛▘▀▌▛▘▌▀▌▛▘
+ *    ▙▖▙▌▙▖▌▌▐▖█▌▄▌ ▙▌█▌▌▌▙▖█▌▌ ▌█▌▄▌
+ *                                    
+ */
+
 
 object cuentaCorriente {
     var property saldo = 0
