@@ -26,8 +26,8 @@ object casaDePepeYJulian {
     
 
     method comprar(cosa) {
-        cosasCompradas.add(cosa)
         self.pagar(cosa)      
+        cosasCompradas.add(cosa)
     }
 
     method cuentaBancaria(){
