@@ -25,7 +25,7 @@ object casaDePepeYJulian {
 
     
 
-    method comprar(cosa) {
+    method comprar(cosa) { // Atencion al orden de los llamados
         self.pagar(cosa)      
         cosasCompradas.add(cosa)
     }
