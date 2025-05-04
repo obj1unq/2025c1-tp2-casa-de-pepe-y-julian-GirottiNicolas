@@ -1,0 +1,120 @@
+import casa.*
+import cosas.*
+import cuenta.*
+
+
+describe "Casa de pepe y julian"{
+    method initialize(){
+        casaDePepeYJulian.cuenta(cuentaConGastos)
+        casaDePepeYJulian.comprar(heladera)
+        casaDePepeYJulian.comprar(cama)
+        casaDePepeYJulian.comprar(plancha)
+
+    }
+    test "Comprar heladera, una cama y una plancha" {
+        
+        assert.equals(casaDePepeYJulian.cosasCompradas(), [heladera,cama,plancha])
+
+        // Cantidad de cosas compradas = 3
+        assert.equals(3,casaDePepeYJulian.cantidadDeCosasCompradas())
+
+        // Tiene algun electro
+        assert.that(casaDePepeYJulian.tieneAlgun(electrodomestico))
+
+        // No tiene alguna comida
+        assert.notThat(casaDePepeYJulian.tieneAlgun(comida))
+
+        // Viene de comprar un electrodomestico pero no un mueble
+        assert.that(casaDePepeYJulian.vieneDeComprar(electrodomestico))
+        assert.notThat(casaDePepeYJulian.vieneDeComprar(mueble))
+
+        // Derrocha guita
+        assert.that(casaDePepeYJulian.esDerrochona())
+
+        // Electrodomesticos comprados -> heladera y plancha
+        assert.equals([heladera,plancha], casaDePepeYJulian.comprados(electrodomestico))
+
+        // Muebles comprados -> cama
+        assert.equals([cama], casaDePepeYJulian.comprados(mueble))
+
+        // Sin comida
+        assert.notThat(casaDePepeYJulian.tieneAlgun(comida))  
+
+        // Es una buena epoca
+        assert.notThat(casaDePepeYJulian.malaEpoca()) 
+
+        // Que falta comprar..
+        assert.equals([tiraDeAsado,paqueteDeFideos],casaDePepeYJulian.queFaltaComprar([tiraDeAsado,plancha,paqueteDeFideos]))
+
+        // falta comida
+        assert.that(casaDePepeYJulian.faltaComida())
+
+        // Categorias compradas -> electro y mueble
+        assert.equals(#{electrodomestico,mueble}, casaDePepeYJulian.categoriasCompradas())
+    }
+    
+}
+
+describe "Cuentas bancarias" {
+    test "Cuenta corriente" {
+        // Saldo inicial
+        cuentaCorriente.saldo(20)
+        assert.equals(20, cuentaCorriente.saldo())
+        
+        // Depositar 1000 
+        cuentaCorriente.depositar(1000)
+        assert.equals(1020,cuentaCorriente.saldo())
+
+        // Extraer 50
+        cuentaCorriente.extraer(50)
+        assert.equals(970, cuentaCorriente.saldo())
+
+        // Extraccion de 2000, genera error
+        assert.throwsExceptionWithMessage("Supera limite de extraccion",
+                                        {cuentaCorriente.extraer(2000)  })
+    }
+
+    test "cuentaConGastos" {
+        // Deposito inicial 
+        cuentaConGastos.saldo(500)
+     
+        // Depositar 1000
+        cuentaConGastos.depositar(1000)
+        assert.equals(1480, cuentaConGastos.saldo())
+
+        // Extraer 30
+        cuentaConGastos.extraer(30)
+        assert.equals(1450, cuentaConGastos.saldo())
+
+        // Deposito de 2000 con error
+        assert.throwsExceptionWithMessage("El deposito supera el limite de 1000",
+                                        {cuentaConGastos.depositar(2000)  })
+        
+        // El saldo sigue en 1450
+        assert.equals(1450, cuentaConGastos.saldo())
+
+        // Extraer 2000 y cuenta en -550
+        cuentaConGastos.extraer(2000)
+        assert.equals(-550, cuentaConGastos.saldo())
+    }
+}
+
+describe "Compras y cuentas bancarias" {
+    test "Cuenta corriente, asado y fernet, digo fideos" {
+        cuentaCorriente.saldo(1000)
+        casaDePepeYJulian.cuenta(cuentaCorriente)
+        casaDePepeYJulian.comprar(tiraDeAsado)
+        casaDePepeYJulian.comprar(paqueteDeFideos)
+        assert.equals(600, cuentaCorriente.saldo())
+        
+  }
+}
+
+describe "Sin dinero no hay compra" {
+    test "Caso borde al fallar extraer" {
+        casaDePepeYJulian.cuenta(cuentaCorriente)
+        cuentaCorriente.saldo(10)
+        assert.throwsException({ casaDePepeYJulian.comprar(tiraDeAsado) })
+        assert.notThat(casaDePepeYJulian.fueComprado(tiraDeAsado))
+  }
+}
