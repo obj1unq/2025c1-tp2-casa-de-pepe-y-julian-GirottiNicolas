@@ -1,5 +1,6 @@
 import casa.*
 import cosas.*
+import cuenta.*
 
 
 describe "Casa de pepe y julian"{
@@ -8,7 +9,7 @@ describe "Casa de pepe y julian"{
         listaDeCompras.forEach({compra => casaDePepeYJulian.comprar(compra)})
     }
     test "Comprar heladera, una cama y una plancha" {
-        casaDePepeYJulian.asignarCuenta(cuentaConGastos)
+        casaDePepeYJulian.cuenta(cuentaConGastos)
         self.comprarVarios([heladera,cama,plancha])
         assert.equals(casaDePepeYJulian.cosasCompradas(), [heladera,cama,plancha])
 
@@ -99,7 +100,7 @@ describe "Cuentas bancarias" {
 describe "Compras y cuentas bancarias" {
     test "Cuenta corriente, asado y fernet, digo fideos" {
         cuentaCorriente.saldo(1000)
-        casaDePepeYJulian.asignarCuenta(cuentaCorriente)
+        casaDePepeYJulian.cuenta(cuentaCorriente)
         casaDePepeYJulian.comprar(tiraDeAsado)
         casaDePepeYJulian.comprar(paqueteDeFideos)
         assert.equals(600, cuentaCorriente.saldo())

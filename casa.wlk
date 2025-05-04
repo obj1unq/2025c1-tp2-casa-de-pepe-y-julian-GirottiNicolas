@@ -1,41 +1,25 @@
 import cosas.* 
 
 
+
 /*
-* ▄▖        ▌                ▘  ▜ ▘    
-* ▌ ▀▌▛▘▀▌ ▛▌█▌ ▛▌█▌▛▌█▌ ▌▌  ▌▌▌▐ ▌▀▌▛▌
-* ▙▖█▌▄▌█▌ ▙▌▙▖ ▙▌▙▖▙▌▙▖ ▙▌  ▌▙▌▐▖▌█▌▌▌
-*               ▌   ▌    ▄▌ ▙▌         
+    CASA DE PEPE Y JULIAN      
 */
 
 object casaDePepeYJulian {
 
     const property cosasCompradas = []
 
-    const cuenta = []
-
-    method asignarCuenta(cuentaDeCasa){
-        if (cuenta.isEmpty()) { cuenta.add(cuentaDeCasa)} else {self.reemplazarCuenta(cuentaDeCasa)}
-    }
-
-    method reemplazarCuenta(cuentaNueva){
-        cuenta.clear()
-        cuenta.add(cuentaNueva)
-    }
-
-    
+    var property cuenta = null
 
     method comprar(cosa) { // Atencion al orden de los llamados
         self.pagar(cosa)      
         cosasCompradas.add(cosa)
     }
 
-    method cuentaBancaria(){
-        return cuenta.first()
-    }
 
     method pagar(compra){
-        self.cuentaBancaria().extraer(compra.precio())
+        cuenta.extraer(compra.precio())
     }
 
     method cantidadDeCosasCompradas(){
@@ -44,49 +28,43 @@ object casaDePepeYJulian {
 
     method tieneAlgun(categoria){
         return cosasCompradas.any({cosa => 
-                                    cosa.categoria() == categoria})
+                                        cosa.esCategoria(categoria)
+                                   })
     }
 
+   
+
     method vieneDeComprar(categoria){
-        return if (self.tieneCompras()) {self.perteneceACategoria(cosasCompradas.last(), categoria)} else {false}
+        return self.tieneCompras() && cosasCompradas.last().esCategoria(categoria)
     }
 
     method tieneCompras(){
         return !cosasCompradas.isEmpty()
     }
-    
-    method perteneceACategoria(cosa,categoria){
-        return cosa.categoria() == categoria
-    }
+  
     
     method comprados(categoria){
         return cosasCompradas.filter({ compra => 
-                                        self.perteneceACategoria(compra, categoria)})                                  
+                                        compra.esCategoria(categoria)})                                  
     }
 
     method esDerrochona(){
-        return self.preciosDeCompras().sum() > 9000
+        return self.cosasCompradas().sum({ compra =>
+                                        compra.precio()}) > 9000
     }
 
-    method preciosDeCompras(){
-        return cosasCompradas.map({ compra =>
-                                        compra.precio()})
-    }
+ 
 
     method compraMasCara() {
-        return if (self.tieneCompras()) { self.elMasValioso() } 
-                else { cosasCompradas } 
-    }
-    
-    method elMasValioso(){
         return cosasCompradas.max({
                             cosa => cosa.precio()
         })
     }
+    
 
     method malaEpoca(){
         return cosasCompradas.all({cosa => 
-                                    self.perteneceACategoria(cosa, comida)})
+                                    cosa.esCategoria(comida)})
     }
 
 
@@ -111,51 +89,3 @@ object casaDePepeYJulian {
 }
 
 
-/*
- *    ▄▖      ▗      ▌           ▘    
- *    ▌ ▌▌█▌▛▌▜▘▀▌▛▘ ▛▌▀▌▛▌▛▘▀▌▛▘▌▀▌▛▘
- *    ▙▖▙▌▙▖▌▌▐▖█▌▄▌ ▙▌█▌▌▌▙▖█▌▌ ▌█▌▄▌
- *                                    
- */
-
-
-object cuentaCorriente {
-    var property saldo = 0
-
-    method depositar(monto){
-        saldo += monto
-    }
-
-    method extraer(cantidad) {
-        self.validarExtraccion(cantidad)
-        saldo -= cantidad
-    }
-    method validarExtraccion(monto){
-        if(monto > saldo){ self.error("Supera limite de extraccion")}
-    }
-}
-
-object cuentaConGastos {
-    var property saldo = 0
-
-    method costoDeOperacion(){
-        return 20
-    }
-
-    method depositar(monto){
-        self.validarDeposito(monto)
-        saldo += (monto - self.costoDeOperacion()) 
-    }
-
-    method validarDeposito(monto){
-        if (monto > 1000){
-            self.error("El deposito supera el limite de 1000")
-        }
-    }
-
-    method extraer(cantidad){
-        saldo -= cantidad
-    }
-
-    
-}
