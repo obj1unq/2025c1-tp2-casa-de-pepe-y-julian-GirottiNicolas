@@ -4,13 +4,15 @@ import cuenta.*
 
 
 describe "Casa de pepe y julian"{
-    
-    method comprarVarios(listaDeCompras){
-        listaDeCompras.forEach({compra => casaDePepeYJulian.comprar(compra)})
+    method initialize(){
+        casaDePepeYJulian.cuenta(cuentaConGastos)
+        casaDePepeYJulian.comprar(heladera)
+        casaDePepeYJulian.comprar(cama)
+        casaDePepeYJulian.comprar(plancha)
+
     }
     test "Comprar heladera, una cama y una plancha" {
-        casaDePepeYJulian.cuenta(cuentaConGastos)
-        self.comprarVarios([heladera,cama,plancha])
+        
         assert.equals(casaDePepeYJulian.cosasCompradas(), [heladera,cama,plancha])
 
         // Cantidad de cosas compradas = 3
