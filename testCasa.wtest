@@ -109,3 +109,12 @@ describe "Compras y cuentas bancarias" {
         
   }
 }
+
+describe "Sin dinero no hay compra" {
+    test "Caso borde al fallar extraer" {
+        casaDePepeYJulian.cuenta(cuentaCorriente)
+        cuentaCorriente.saldo(10)
+        assert.throwsException({ casaDePepeYJulian.comprar(tiraDeAsado) })
+        assert.notThat(casaDePepeYJulian.fueComprado(tiraDeAsado))
+  }
+}
